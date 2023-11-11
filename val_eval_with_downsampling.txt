@@ -1,0 +1,1 @@
+('eval_loss', 0.8073587417602539)('eval_accuracy', 0.8537313432835821)('eval_f1 score', 0.48421052631578954)('eval_runtime', 43.8968)('eval_samples_per_second', 38.158)('eval_steps_per_second', 4.784)('epoch', 10.0)

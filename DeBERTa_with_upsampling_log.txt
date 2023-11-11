@@ -1,0 +1,295 @@
+root@n6c51ikep7:/notebooks# python3 DeBERTa_with_upsampling.py 
+cuda:0
+Downloading vocab.json: 100%|█████████████████████████████████████████████████████████████████████████████████████████| 878k/878k [00:00<00:00, 15.4MB/s]
+Downloading merges.txt: 100%|█████████████████████████████████████████████████████████████████████████████████████████| 446k/446k [00:00<00:00, 6.66MB/s]
+Downloading tokenizer_config.json: 100%|██████████████████████████████████████████████████████████████████████████████| 52.0/52.0 [00:00<00:00, 38.4kB/s]
+Downloading config.json: 100%|███████████████████████████████████████████████████████████████████████████████████████████| 474/474 [00:00<00:00, 364kB/s]
+Downloading pytorch_model.bin: 100%|██████████████████████████████████████████████████████████████████████████████████| 533M/533M [00:10<00:00, 52.2MB/s]
+Some weights of the model checkpoint at microsoft/deberta-base were not used when initializing DebertaForSequenceClassification: ['lm_predictions.lm_head.bias', 'lm_predictions.lm_head.dense.weight', 'lm_predictions.lm_head.dense.bias', 'lm_predictions.lm_head.LayerNorm.weight', 'lm_predictions.lm_head.LayerNorm.bias']
+- This IS expected if you are initializing DebertaForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing DebertaForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of DebertaForSequenceClassification were not initialized from the model checkpoint at microsoft/deberta-base and are newly initialized: ['classifier.bias', 'pooler.dense.weight', 'classifier.weight', 'pooler.dense.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+DebertaConfig {
+  "_name_or_path": "microsoft/deberta-base",
+  "attention_probs_dropout_prob": 0.1,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-07,
+  "max_position_embeddings": 512,
+  "max_relative_positions": -1,
+  "model_type": "deberta",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "pad_token_id": 0,
+  "pooler_dropout": 0,
+  "pooler_hidden_act": "gelu",
+  "pooler_hidden_size": 768,
+  "pos_att_type": [
+    "c2p",
+    "p2c"
+  ],
+  "position_biased_input": false,
+  "relative_attention": true,
+  "transformers_version": "4.21.3",
+  "type_vocab_size": 0,
+  "vocab_size": 50265
+}
+
+/usr/local/lib/python3.9/dist-packages/transformers/optimization.py:306: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
+  warnings.warn(
+***** Running training *****
+  Num examples = 11236
+  Num Epochs = 10
+  Instantaneous batch size per device = 8
+  Total train batch size (w. parallel, distributed & accumulation) = 8
+  Gradient Accumulation steps = 1
+  Total optimization steps = 14050
+Automatic Weights & Biases logging enabled, to disable set os.environ["WANDB_DISABLED"] = "true"
+wandb: (1) Create a W&B account
+wandb: (2) Use an existing W&B account
+wandb: (3) Don't visualize my results
+wandb: Enter your choice: 3
+wandb: You chose 'Don't visualize my results'
+wandb: Tracking run with wandb version 0.13.4
+wandb: W&B syncing is set to `offline` in this directory.  
+wandb: Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+  0%|                                                                                                                          | 0/14050 [00:00<?, ?it/s]/notebooks/DeBERTa_with_upsampling.py:46: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+{'loss': 0.463, 'learning_rate': 9.644128113879004e-06, 'epoch': 0.36}                                                                                   
+{'loss': 0.276, 'learning_rate': 9.288256227758008e-06, 'epoch': 0.71}                                                                                   
+ 10%|██████████▉                                                                                                  | 1405/14050 [15:14<1:59:15,  1.77it/s]***** Running Evaluation *****
+  Num examples = 1675
+  Batch size = 8
+{'eval_loss': 0.5281514525413513, 'eval_accuracy': 0.8859701492537313, 'eval_f1 score': 0.5213032581453634, 'eval_runtime': 44.8389, 'eval_samples_per_second': 37.356, 'eval_steps_per_second': 4.683, 'epoch': 1.0}                                                                                             
+ 10%|██████████▉                                                                                                  | 1405/14050 [15:59<1:59:15,  1.77it/sSaving model checkpoint to Deberta/checkpoint-1405                                                                                                        
+Configuration saved in Deberta/checkpoint-1405/config.json
+Model weights saved in Deberta/checkpoint-1405/pytorch_model.bin
+tokenizer config file saved in Deberta/checkpoint-1405/tokenizer_config.json
+Special tokens file saved in Deberta/checkpoint-1405/special_tokens_map.json
+/notebooks/DeBERTa_with_upsampling.py:46: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+{'loss': 0.2031, 'learning_rate': 8.932384341637011e-06, 'epoch': 1.07}                                                                                  
+{'loss': 0.1049, 'learning_rate': 8.576512455516016e-06, 'epoch': 1.42}                                                                                  
+{'loss': 0.0826, 'learning_rate': 8.220640569395019e-06, 'epoch': 1.78}                                                                                  
+ 20%|█████████████████████▊                                                                                       | 2810/14050 [31:18<1:45:59,  1.77it/s]***** Running Evaluation *****
+  Num examples = 1675
+  Batch size = 8
+{'eval_loss': 0.5000941753387451, 'eval_accuracy': 0.9170149253731343, 'eval_f1 score': 0.5442622950819673, 'eval_runtime': 44.8055, 'eval_samples_per_second': 37.384, 'eval_steps_per_second': 4.687, 'epoch': 2.0}                                                                                             
+ 20%|█████████████████████▊                                                                                       | 2810/14050 [32:03<1:45:59,  1.77it/sSaving model checkpoint to Deberta/checkpoint-2810                                                                                                        
+Configuration saved in Deberta/checkpoint-2810/config.json
+Model weights saved in Deberta/checkpoint-2810/pytorch_model.bin
+tokenizer config file saved in Deberta/checkpoint-2810/tokenizer_config.json
+Special tokens file saved in Deberta/checkpoint-2810/special_tokens_map.json
+/notebooks/DeBERTa_with_upsampling.py:46: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+{'loss': 0.0613, 'learning_rate': 7.864768683274022e-06, 'epoch': 2.14}                                                                                  
+{'loss': 0.0372, 'learning_rate': 7.508896797153026e-06, 'epoch': 2.49}                                                                                  
+{'loss': 0.0393, 'learning_rate': 7.153024911032029e-06, 'epoch': 2.85}                                                                                  
+ 30%|████████████████████████████████▋                                                                            | 4215/14050 [47:22<1:33:01,  1.76it/s]***** Running Evaluation *****
+  Num examples = 1675
+  Batch size = 8
+{'eval_loss': 0.7973520755767822, 'eval_accuracy': 0.8871641791044776, 'eval_f1 score': 0.5552941176470589, 'eval_runtime': 45.0099, 'eval_samples_per_second': 37.214, 'eval_steps_per_second': 4.666, 'epoch': 3.0}                                                                                             
+ 30%|████████████████████████████████▋                                                                            | 4215/14050 [48:07<1:33:01,  1.76it/sSaving model checkpoint to Deberta/checkpoint-4215                                                                                                        
+Configuration saved in Deberta/checkpoint-4215/config.json
+Model weights saved in Deberta/checkpoint-4215/pytorch_model.bin
+tokenizer config file saved in Deberta/checkpoint-4215/tokenizer_config.json
+Special tokens file saved in Deberta/checkpoint-4215/special_tokens_map.json
+/notebooks/DeBERTa_with_upsampling.py:46: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+{'loss': 0.0346, 'learning_rate': 6.797153024911033e-06, 'epoch': 3.2}                                                                                   
+{'loss': 0.0225, 'learning_rate': 6.4412811387900366e-06, 'epoch': 3.56}                                                                                 
+{'loss': 0.0232, 'learning_rate': 6.08540925266904e-06, 'epoch': 3.91}                                                                                   
+ 40%|██████████████████████████████████████████▊                                                                | 5620/14050 [1:03:26<1:19:41,  1.76it/s]***** Running Evaluation *****
+  Num examples = 1675
+  Batch size = 8
+{'eval_loss': 0.7054596543312073, 'eval_accuracy': 0.924179104477612, 'eval_f1 score': 0.48582995951417, 'eval_runtime': 44.9657, 'eval_samples_per_second': 37.251, 'eval_steps_per_second': 4.67, 'epoch': 4.0}                                                                                                 
+ 40%|██████████████████████████████████████████▊                                                                | 5620/14050 [1:04:11<1:19:41,  1.76it/sSaving model checkpoint to Deberta/checkpoint-5620                                                                                                        
+Configuration saved in Deberta/checkpoint-5620/config.json
+Model weights saved in Deberta/checkpoint-5620/pytorch_model.bin
+tokenizer config file saved in Deberta/checkpoint-5620/tokenizer_config.json
+Special tokens file saved in Deberta/checkpoint-5620/special_tokens_map.json
+/notebooks/DeBERTa_with_upsampling.py:46: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+{'loss': 0.007, 'learning_rate': 5.729537366548043e-06, 'epoch': 4.27}                                                                                   
+{'loss': 0.0247, 'learning_rate': 5.373665480427047e-06, 'epoch': 4.63}                                                                                  
+{'loss': 0.0171, 'learning_rate': 5.017793594306051e-06, 'epoch': 4.98}                                                                                  
+ 50%|█████████████████████████████████████████████████████▌                                                     | 7025/14050 [1:19:31<1:06:13,  1.77it/s]***** Running Evaluation *****
+  Num examples = 1675
+  Batch size = 8
+{'eval_loss': 0.6992669701576233, 'eval_accuracy': 0.928955223880597, 'eval_f1 score': 0.5142857142857142, 'eval_runtime': 44.8348, 'eval_samples_per_second': 37.359, 'eval_steps_per_second': 4.684, 'epoch': 5.0}                                                                                              
+ 50%|█████████████████████████████████████████████████████▌                                                     | 7025/14050 [1:20:16<1:06:13,  1.77it/sSaving model checkpoint to Deberta/checkpoint-7025                                                                                                        
+Configuration saved in Deberta/checkpoint-7025/config.json
+Model weights saved in Deberta/checkpoint-7025/pytorch_model.bin
+tokenizer config file saved in Deberta/checkpoint-7025/tokenizer_config.json
+Special tokens file saved in Deberta/checkpoint-7025/special_tokens_map.json
+/notebooks/DeBERTa_with_upsampling.py:46: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+{'loss': 0.0191, 'learning_rate': 4.661921708185054e-06, 'epoch': 5.34}                                                                                  
+{'loss': 0.016, 'learning_rate': 4.306049822064057e-06, 'epoch': 5.69}                                                                                   
+ 60%|█████████████████████████████████████████████████████████████████▍                                           | 8430/14050 [1:35:36<53:05,  1.76it/s]***** Running Evaluation *****
+  Num examples = 1675
+  Batch size = 8
+{'eval_loss': 0.6621840000152588, 'eval_accuracy': 0.9259701492537313, 'eval_f1 score': 0.5267175572519084, 'eval_runtime': 44.922, 'eval_samples_per_second': 37.287, 'eval_steps_per_second': 4.675, 'epoch': 6.0}                                                                                              
+ 60%|█████████████████████████████████████████████████████████████████▍                                           | 8430/14050 [1:36:21<53:05,  1.76it/sSaving model checkpoint to Deberta/checkpoint-8430                                                                                                        
+Configuration saved in Deberta/checkpoint-8430/config.json
+Model weights saved in Deberta/checkpoint-8430/pytorch_model.bin
+tokenizer config file saved in Deberta/checkpoint-8430/tokenizer_config.json
+Special tokens file saved in Deberta/checkpoint-8430/special_tokens_map.json
+/notebooks/DeBERTa_with_upsampling.py:46: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+{'loss': 0.012, 'learning_rate': 3.950177935943061e-06, 'epoch': 6.05}                                                                                   
+{'loss': 0.0042, 'learning_rate': 3.5943060498220644e-06, 'epoch': 6.41}                                                                                 
+{'loss': 0.0054, 'learning_rate': 3.238434163701068e-06, 'epoch': 6.76}                                                                                  
+ 70%|████████████████████████████████████████████████████████████████████████████▎                                | 9835/14050 [1:51:42<39:47,  1.77it/s]***** Running Evaluation *****
+  Num examples = 1675
+  Batch size = 8
+{'eval_loss': 0.7444500923156738, 'eval_accuracy': 0.9271641791044776, 'eval_f1 score': 0.5642857142857144, 'eval_runtime': 44.9311, 'eval_samples_per_second': 37.279, 'eval_steps_per_second': 4.674, 'epoch': 7.0}                                                                                             
+ 70%|████████████████████████████████████████████████████████████████████████████▎                                | 9835/14050 [1:52:27<39:47,  1.77it/sSaving model checkpoint to Deberta/checkpoint-9835                                                                                                        
+Configuration saved in Deberta/checkpoint-9835/config.json
+Model weights saved in Deberta/checkpoint-9835/pytorch_model.bin
+tokenizer config file saved in Deberta/checkpoint-9835/tokenizer_config.json
+Special tokens file saved in Deberta/checkpoint-9835/special_tokens_map.json
+/notebooks/DeBERTa_with_upsampling.py:46: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+{'loss': 0.0059, 'learning_rate': 2.8825622775800715e-06, 'epoch': 7.12}                                                                                 
+{'loss': 0.0071, 'learning_rate': 2.526690391459075e-06, 'epoch': 7.47}                                                                                  
+{'loss': 0.0023, 'learning_rate': 2.1708185053380785e-06, 'epoch': 7.83}                                                                                 
+ 80%|██████████████████████████████████████████████████████████████████████████████████████▍                     | 11240/14050 [2:07:48<26:31,  1.77it/s]***** Running Evaluation *****
+  Num examples = 1675
+  Batch size = 8
+{'eval_loss': 0.7689336538314819, 'eval_accuracy': 0.9277611940298508, 'eval_f1 score': 0.5433962264150943, 'eval_runtime': 44.8563, 'eval_samples_per_second': 37.341, 'eval_steps_per_second': 4.682, 'epoch': 8.0}                                                                                             
+ 80%|██████████████████████████████████████████████████████████████████████████████████████▍                     | 11240/14050 [2:08:33<26:31,  1.77it/sSaving model checkpoint to Deberta/checkpoint-11240                                                                                                       
+Configuration saved in Deberta/checkpoint-11240/config.json
+Model weights saved in Deberta/checkpoint-11240/pytorch_model.bin
+tokenizer config file saved in Deberta/checkpoint-11240/tokenizer_config.json
+Special tokens file saved in Deberta/checkpoint-11240/special_tokens_map.json
+/notebooks/DeBERTa_with_upsampling.py:46: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+{'loss': 0.0, 'learning_rate': 1.814946619217082e-06, 'epoch': 8.19}                                                                                     
+{'loss': 0.0, 'learning_rate': 1.4590747330960856e-06, 'epoch': 8.54}                                                                                    
+{'loss': 0.0029, 'learning_rate': 1.1032028469750891e-06, 'epoch': 8.9}                                                                                  
+ 90%|█████████████████████████████████████████████████████████████████████████████████████████████████▏          | 12645/14050 [2:23:52<13:15,  1.77it/s]***** Running Evaluation *****
+  Num examples = 1675
+  Batch size = 8
+{'eval_loss': 0.8130463361740112, 'eval_accuracy': 0.9253731343283582, 'eval_f1 score': 0.5387453874538745, 'eval_runtime': 44.8733, 'eval_samples_per_second': 37.327, 'eval_steps_per_second': 4.68, 'epoch': 9.0}                                                                                              
+ 90%|█████████████████████████████████████████████████████████████████████████████████████████████████▏          | 12645/14050 [2:24:37<13:15,  1.77it/sSaving model checkpoint to Deberta/checkpoint-12645                                                                                                       
+Configuration saved in Deberta/checkpoint-12645/config.json
+Model weights saved in Deberta/checkpoint-12645/pytorch_model.bin
+tokenizer config file saved in Deberta/checkpoint-12645/tokenizer_config.json
+Special tokens file saved in Deberta/checkpoint-12645/special_tokens_map.json
+/notebooks/DeBERTa_with_upsampling.py:46: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+{'loss': 0.0015, 'learning_rate': 7.473309608540925e-07, 'epoch': 9.25}                                                                                  
+{'loss': 0.0027, 'learning_rate': 3.914590747330961e-07, 'epoch': 9.61}                                                                                  
+{'loss': 0.0, 'learning_rate': 3.5587188612099644e-08, 'epoch': 9.96}                                                                                    
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████| 14050/14050 [2:39:56<00:00,  1.77it/s]***** Running Evaluation *****
+  Num examples = 1675
+  Batch size = 8
+{'eval_loss': 0.8081735372543335, 'eval_accuracy': 0.9277611940298508, 'eval_f1 score': 0.5254901960784314, 'eval_runtime': 44.764, 'eval_samples_per_second': 37.418, 'eval_steps_per_second': 4.691, 'epoch': 10.0}                                                                                             
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████| 14050/14050 [2:40:41<00:00,  1.77it/sSaving model checkpoint to Deberta/checkpoint-14050                                                                                                       
+Configuration saved in Deberta/checkpoint-14050/config.json
+Model weights saved in Deberta/checkpoint-14050/pytorch_model.bin
+tokenizer config file saved in Deberta/checkpoint-14050/tokenizer_config.json
+Special tokens file saved in Deberta/checkpoint-14050/special_tokens_map.json
+
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+Loading best model from Deberta/checkpoint-9835 (score: 0.5642857142857144).
+{'train_runtime': 9650.7897, 'train_samples_per_second': 11.643, 'train_steps_per_second': 1.456, 'train_loss': 0.05251342243065969, 'epoch': 10.0}      
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████| 14050/14050 [2:40:43<00:00,  1.46it/s]
+Saving model checkpoint to ./models/saved_model_upsampling/
+Configuration saved in ./models/saved_model_upsampling/config.json
+Model weights saved in ./models/saved_model_upsampling/pytorch_model.bin
+tokenizer config file saved in ./models/saved_model_upsampling/tokenizer_config.json
+Special tokens file saved in ./models/saved_model_upsampling/special_tokens_map.json
+loading configuration file ./models/saved_model_upsampling/config.json
+Model config DebertaConfig {
+  "_name_or_path": "microsoft/deberta-base",
+  "architectures": [
+    "DebertaForSequenceClassification"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-07,
+  "max_position_embeddings": 512,
+  "max_relative_positions": -1,
+  "model_type": "deberta",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "pad_token_id": 0,
+  "pooler_dropout": 0,
+  "pooler_hidden_act": "gelu",
+  "pooler_hidden_size": 768,
+  "pos_att_type": [
+    "c2p",
+    "p2c"
+  ],
+  "position_biased_input": false,
+  "relative_attention": true,
+  "torch_dtype": "float32",
+  "transformers_version": "4.21.3",
+  "type_vocab_size": 0,
+  "vocab_size": 50265
+}
+
+loading weights file ./models/saved_model_upsampling/pytorch_model.bin
+All model checkpoint weights were used when initializing DebertaForSequenceClassification.
+
+All the weights of DebertaForSequenceClassification were initialized from the model checkpoint at ./models/saved_model_upsampling/.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use DebertaForSequenceClassification for predictions without further training.
+***** Running Evaluation *****
+  Num examples = 1675
+  Batch size = 8
+/notebooks/DeBERTa_with_upsampling.py:46: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 210/210 [00:44<00:00,  4.72it/s]
+{'eval_loss': 0.7444500923156738, 'eval_accuracy': 0.9271641791044776, 'eval_f1 score': 0.5642857142857144, 'eval_runtime': 44.6991, 'eval_samples_per_second': 37.473, 'eval_steps_per_second': 4.698, 'epoch': 10.0}
+wandb: Waiting for W&B process to finish... (success).
+wandb: 
+wandb: Run history:
+wandb:                  eval/accuracy ▁▆▁▇████▇██
+wandb:                  eval/f1 score ▄▆▇▁▄▅█▆▆▅█
+wandb:                      eval/loss ▂▁█▆▅▅▆▇██▆
+wandb:                   eval/runtime ▄▃█▇▄▆▆▅▅▂▁
+wandb:        eval/samples_per_second ▅▆▁▂▅▃▃▄▄▇█
+wandb:          eval/steps_per_second ▅▆▁▂▅▃▃▅▄▆█
+wandb:                    train/epoch ▁▁▁▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇█████
+wandb:              train/global_step ▁▁▁▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇█████
+wandb:            train/learning_rate ██▇▇▇▇▆▆▆▆▅▅▅▅▄▄▄▄▃▃▃▃▂▂▂▂▁▁
+wandb:                     train/loss █▅▄▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               train/total_flos ▁
+wandb:               train/train_loss ▁
+wandb:            train/train_runtime ▁
+wandb: train/train_samples_per_second ▁
+wandb:   train/train_steps_per_second ▁
+wandb: 
+wandb: Run summary:
+wandb:                  eval/accuracy 0.92716
+wandb:                  eval/f1 score 0.56429
+wandb:                      eval/loss 0.74445
+wandb:                   eval/runtime 44.6991
+wandb:        eval/samples_per_second 37.473
+wandb:          eval/steps_per_second 4.698
+wandb:                    train/epoch 10.0
+wandb:              train/global_step 14050
+wandb:            train/learning_rate 0.0
+wandb:                     train/loss 0.0
+wandb:               train/total_flos 3.444930624970752e+16
+wandb:               train/train_loss 0.05251
+wandb:            train/train_runtime 9650.7897
+wandb: train/train_samples_per_second 11.643
+wandb:   train/train_steps_per_second 1.456
+wandb: 
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /notebooks/wandb/offline-run-20230224_084840-419b4xe3
+wandb: Find logs at: ./wandb/offline-run-20230224_084840-419b4xe3/logs

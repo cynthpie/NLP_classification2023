@@ -1,0 +1,5 @@
+- Pre-process data to extract par_id, keyword, country, text, label and split into train and official dev - Joanna
+- Data analysis of training data (q1) - Joanna
+- Build two simple baseline models for comparison with transformer
+    - Astrid (BoW if in PyTorch)
+    - Cynthia (NN)
