@@ -6,7 +6,7 @@ This project aims to develop a large language model (LLM) to predict whether a t
 
 One of the challenging in this project is that the given data is highly class-imbalanced: there are much more negative samples than positive ones (993 vs 9476).
 
-For whole development process and summary, see "report.pdf".
+For whole development process and summary, see "NLP_report.pdf".
 
 
 ## In this project
